@@ -1,0 +1,19 @@
+.login_button{
+    color: white;
+    background-color: rgb(0, 0, 0);
+    width: 33%;
+    border: none;
+    height: 5vh;
+    padding: 8px;
+}
+
+.title{
+    margin-top: 4vh;
+}
+
+.input_form:focus{
+    border: 3px solid rgba(0, 0, 0, 0.204)!important;
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}
+
