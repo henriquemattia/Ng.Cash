@@ -7,11 +7,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../services/Api';
 import NavBar from '../../components/NavBar';
-
-type User = {
-    username: string,
-    password: string
-}
+import { User } from '../../Types/User';
 
 
 
@@ -20,20 +16,18 @@ const Registro: React.FC = () => {
     const navigate = useNavigate()
 
     const createUser = async (data: User) => {
-
         try {
             const url = '/register'
             const res = await api.post(url, {
                 username: data.username,
                 password: data.password
-            }as User)
+            } as User)
 
-            if(res.status == 200){
+            if (res.status == 200) {
                 navigate('/')
 
             }
-            
-    
+
         } catch (err) {
             console.log(err);
         }
@@ -42,7 +36,7 @@ const Registro: React.FC = () => {
 
     return (
         <>
-        <NavBar />
+            <NavBar />
             <Container>
                 <h1 className='title'> Cadastre-se</h1>
                 <br />
@@ -56,7 +50,7 @@ const Registro: React.FC = () => {
                             className='rounded-0 input_form'
                             type="text"
                             placeholder="Nome completo"
-                        {...register("username", { required: true, minLength: 3 })}
+                            {...register("username", { required: true, minLength: 3 })}
                         />
                         {errors.username && <small style={{ color: "red" }}>Nome é Obrigatório</small>}
                         {errors.username?.type === "minLength" && <p style={{ color: "red" }}><small>Nome deve conter no minimo 3 caracteres </small></p>}
@@ -73,9 +67,9 @@ const Registro: React.FC = () => {
                             className='rounded-0 input_form'
                             type="password"
                             placeholder="Senha"
-                        {...register("password", { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/ })}
+                            {...register("password", { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/ })}
                         />
-                        {errors.password && <span style={{ color: "red"}}> <small>Digite uma senha válida:</small></span>}
+                        {errors.password && <span style={{ color: "red" }}> <small>Digite uma senha válida:</small></span>}
                         {errors.password?.type === "pattern" && <div style={{ color: "red" }}>
                             <ul>
                                 <li>Senha válida deve conter no mínimo 8 caracteres</li>

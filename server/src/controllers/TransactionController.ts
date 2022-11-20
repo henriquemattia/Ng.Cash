@@ -13,6 +13,8 @@ export class TransactionController {
 
         // INFORMAÇÕES DO CREDITANTE
         const { username: creditedtUsername, value: transactionValue } = req.body
+        console.log(creditedtUsername,transactionValue);
+        
 
         if (debitedUsername === creditedtUsername) {        // verficando se o usuario nao está tentando tranferir dinheiro para ele mesmo
             return res.status(401).json("Não é possivel tranferir dinheiro para si própio")
