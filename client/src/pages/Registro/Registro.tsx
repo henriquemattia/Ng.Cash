@@ -5,7 +5,7 @@ import './registro.css'
 import { useForm } from 'react-hook-form'
 
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../services/Api';
+import { api } from '../../services/Api';
 import NavBar from '../../components/NavBar';
 
 type User = {
@@ -94,7 +94,7 @@ const Registro: React.FC = () => {
 
                     <Form.Group>
                         <br />
-                        <small>Já possui uma conta? clique <Link to='/'>aqui</Link> para entrar!</small>
+                        <small>Já possui uma conta? clique <Link to='/login'>aqui</Link> para entrar!</small>
                     </Form.Group>
 
                 </Form>

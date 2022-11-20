@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
-import api from '../../services/Api';
+import { api } from '../../services/Api';
 
 import './login.css'
 
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
               alert("Usuario ou senha incorretos")
           }else{
               localStorage.setItem("token", res.data.token)
-              navigate("/home")
+              navigate("/")
               }
             console.log(res)
             
@@ -97,7 +97,7 @@ const Login: React.FC = () => {
 
 
                     <Form.Group>
-                        <button className='login_button' type='submit' onClick={handleSubmit(createUser)}>Cadastrar-se</button>
+                        <button className='login_button' type='submit' onClick={handleSubmit(createUser)}>Login</button>
                     </Form.Group>
 
                     <Form.Group>

@@ -8,8 +8,8 @@ import Registro from './pages/Registro/Registro'
       <BrowserRouter>
         <Routes>
 
-          <Route path='/' index element={<Login />}/>
-          <Route path='/home' element={<Home />}/>
+          <Route path='/' index element={<Home />}/>
+          <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Registro />}/>
 
         </Routes>
