@@ -57,7 +57,7 @@ export class TransactionController {
                 creditedAccount: creditedAccountId
             })
             const verifyTransaction = await transactionRepository.save(transaction)
-
+            
             if (!verifyTransaction) {
                 return res.status(400).json("Erro ao efetuar transferencia")
             }

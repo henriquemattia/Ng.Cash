@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form'
 
 import { Link, useNavigate } from 'react-router-dom';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/navbar/NavBar';
 import { api } from '../../services/Api';
 
 import './login.css'

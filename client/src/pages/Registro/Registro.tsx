@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../services/Api';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/navbar/NavBar';
 import { User } from '../../Types/User';
 
 

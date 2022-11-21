@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/navbar/NavBar';
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import Table from 'react-bootstrap/Table'
+
 
 // Styles
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -14,6 +16,7 @@ import './home.css'
 // TYPES
 import { Transactions, MakeTransaction } from '../../Types/Transactions'
 import { UserFinal } from '../../Types/User';
+import TableTransfer from '../../components/table/Table';
 
 
 
@@ -82,59 +85,99 @@ const Home: React.FC = () => {
     <>
       <NavBar />
       <header>
-        <h4>Bem vindo, {user?.username}!</h4>
-        <p>Seu saldo é de: {user?.balance},00 R$</p>
+        <div className="title_zone">
+          <h4 className="user_title">Bem vindo, {user?.username}!</h4>
+          <p className="balance_title">Seu saldo é de: {user?.balance},00 R$</p>
+        </div>
       </header>
 
       <section>
-        <h4>Trasnferir</h4>
+        <div className="transfer_zone">
+          <h4 className="transfer-title">Transferir:</h4>
 
-        <div className='dd'>
-          <Row>
-            <Col>
-              <Form.Label>Para: </Form.Label>
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">Nome:</InputGroup.Text>
-                <Form.Control
-                  className='input_form'
-                  placeholder="Nome do destinatário"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  {...register("username", { required: true, minLength: 3 })}
-                  {...errors.username && <small style={{ color: "red" }}>Nome é Obrigatório</small>}
-                  {...errors.username?.type === "minLength" && <p style={{ color: "red" }}><small>Nome deve conter no minimo 3 caracteres </small></p>}
-                />
-              </InputGroup>
+          <div className='dd'>
+            <Row>
+              <div className="inputs">
+                <Col>
 
-            </Col>
+                  <Form.Label className="input_title">Para: </Form.Label>
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon1">Nome:</InputGroup.Text>
+                    <Form.Control
+                      className='input_form'
+                      placeholder="Nome do destinatário"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      {...register("username", { required: true, minLength: 3 })}
+                      {...errors.username && <small style={{ color: "red" }}>Nome é Obrigatório</small>}
+                      {...errors.username?.type === "minLength" && <p style={{ color: "red" }}><small>Nome deve conter no minimo 3 caracteres </small></p>}
+                    />
+                  </InputGroup>
 
-            <Col>
-              <Form.Label>valor: </Form.Label>
-              <InputGroup className="mb-3 ">
-                <InputGroup.Text>R$</InputGroup.Text>
-                <Form.Control
-                  type='number'
-                  placeholder="Ex: 50"
-                  className='input_form'
-                  aria-label="Amount (to the nearest dollar)"
-                  {...register("value", { required: true, })}
-                  {...errors.username && <small style={{ color: "red" }}>Valor é Obrigatório</small>}
-                />
-                <InputGroup.Text>,00</InputGroup.Text>
-              </InputGroup>
-            </Col>
-          </Row>
-        </div>
+                </Col>
 
-        <Form.Group>
-          <div className='area-button'>
-            <button className='submit_button' type='submit' onClick={handleSubmit(makeTransfer)}>Enviar</button>
+                <Col>
+                  <Form.Label className="input_title">Valor: </Form.Label>
+                  <InputGroup className="mb-3 ">
+                    <InputGroup.Text>R$</InputGroup.Text>
+                    <Form.Control
+                      type='number'
+                      placeholder="Ex: 50"
+                      className='input_form'
+                      aria-label="Amount (to the nearest dollar)"
+                      {...register("value", { required: true, })}
+                      {...errors.username && <small style={{ color: "red" }}>Valor é Obrigatório</small>}
+                    />
+                    <InputGroup.Text>,00</InputGroup.Text>
+                  </InputGroup>
+                </Col>
+              </div>
+            </Row>
           </div>
-        </Form.Group>
-        {reqError ? <small style={{ color: "red" }}>Algo deu Errado!</small> : null}
 
+          <Form.Group>
+            <div className='area-button'>
+              <button className='submit_button' type='submit' onClick={handleSubmit(makeTransfer)}>Enviar</button>
+            </div>
+          </Form.Group>
+          {reqError ? <small style={{ color: "red" }}>Algo deu Errado!</small> : null}
+        </div>
+      </section>
 
+      <section>
+        <div className="my_transfers">
+          <div>
+            <h4 className="mytransfers_title">Suas transferencias: </h4>
+            <Table striped bordered hover variant="dark"  >
+              <thead>
+                <tr>
+                  <th>Nome:</th>
+                  <th>Pra quem:</th>
+                  <th>Valor:</th>
+                  <th>Data:</th>
+                </tr>
+              </thead>
 
+                {transactions?.map((tra) => {
+                  const data = tra.created_At.split('T')[0]
+                  return (
+                    <>
+
+                      <TableTransfer
+                        key={tra.id}
+                        userName={tra.debitedAccountId}
+                        data={data}
+                        creditUsername={tra.creditedAccountId}
+                        valor={tra.value}
+                      // creditUsername={tra.creditedAccountId}
+                      // valor={tra.value}
+                      />
+                    </>
+                  )
+                })}
+            </Table>
+          </div>
+        </div>
       </section>
 
     </>

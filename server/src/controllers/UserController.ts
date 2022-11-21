@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { accountRepository } from '../repositories/accountRepository'
 import { transactionRepository } from '../repositories/transactionRepository'
+import { type } from 'os'
 
 
 type JwtPayload = {
@@ -124,11 +125,20 @@ async create(req: Request, res: Response) {
 
 	async getProfile(req: Request, res: Response) {
 
+		 type Transactions = [{
+			id: number
+			creditedAccountId: number,
+			debitedAccountId: number,
+			value: number,
+			created_At: string,
+		  }]
+		
+
 		const { accountId } = req.user
 		const allTransactions = await transactionRepository.query(`SELECT * FROM "Transactions" 
 		WHERE "debitedAccountId" = ${accountId} 
 		OR "creditedAccountId" = ${accountId}
-		limit 5`)
+		limit 5`) as Transactions
 
 		const userData = [{"user":req.user},{"allTransacions": allTransactions}]
 
