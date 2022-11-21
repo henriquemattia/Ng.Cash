@@ -4,7 +4,7 @@ export type Transactions = [{
     debitedAccountId: number,
     value: number,
     created_At: string,
-  }]
+  }] 
 
   export  type MakeTransaction = {
     username: string,

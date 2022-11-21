@@ -3,7 +3,7 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-const TableTransfer: React.FC = (props: any) => {
+const TableTransfer: React.FC | any = (props: {data: string, userName: string, creditUsername:string, valor: number}) => {
   return (
     <>
           <tbody >

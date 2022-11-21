@@ -38,16 +38,18 @@ const Registro: React.FC = () => {
         <>
             <NavBar />
             <Container>
+                <div className="register_container">
                 <h1 className='title'> Cadastre-se</h1>
                 <br />
+
                 <Form>
 
                     {/* USERNAME */}
 
                     <Form.Group className="mb-3 asda" controlId="formGroupName">
-                        <Form.Label>Nome</Form.Label>
+                        <Form.Label className="label">Nome</Form.Label>
                         <Form.Control
-                            className='rounded-0 input_form'
+                            className='input_form'
                             type="text"
                             placeholder="Nome completo"
                             {...register("username", { required: true, minLength: 3 })}
@@ -62,9 +64,9 @@ const Registro: React.FC = () => {
                     {/* SENHA */}
 
                     <Form.Group className="mb-3" controlId="formGroupPassword">
-                        <Form.Label>Senha</Form.Label>
+                        <Form.Label className="label">Senha</Form.Label>
                         <Form.Control
-                            className='rounded-0 input_form'
+                            className='input_form'
                             type="password"
                             placeholder="Senha"
                             {...register("password", { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/ })}
@@ -88,10 +90,11 @@ const Registro: React.FC = () => {
 
                     <Form.Group>
                         <br />
-                        <small>Já possui uma conta? clique <Link to='/login'>aqui</Link> para entrar!</small>
+                        <small className="supporting_text">Já possui uma conta? clique <Link to='/login'>aqui</Link> para entrar!</small>
                     </Form.Group>
 
                 </Form>
+                </div>
             </Container>
         </>
     );

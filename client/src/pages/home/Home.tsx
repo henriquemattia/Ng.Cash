@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../../components/navbar/NavBar';
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
 
+// Components
+import NavBar from '../../components/navbar/NavBar';
+import TableTransfer from '../../components/table/Table';
 
 // Styles
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -16,17 +18,23 @@ import './home.css'
 // TYPES
 import { Transactions, MakeTransaction } from '../../Types/Transactions'
 import { UserFinal } from '../../Types/User';
-import TableTransfer from '../../components/table/Table';
 
+type credUser = {
+accountId:number,
+balance: number,
+id: number,
+password: string,
+username: string,
+index: number
+}
 
 
 const Home: React.FC = () => {
 
   const [user, setUser] = useState<UserFinal>()
   const [transactions, setTransactions] = useState<Transactions>()
-
+  const [credUser, setCredUser] = useState<any>()
   const [reqError, setReqError] = useState<boolean>(false)
-
   const { register, handleSubmit, reset, formState: { errors } } = useForm<MakeTransaction>();
 
   // Requisiçao inicial, verificando a existencia do token
@@ -44,10 +52,15 @@ const Home: React.FC = () => {
       const res = await safeApi.get(url)
       setUser(res.data[0].user)
       setTransactions(res.data[1].allTransacions)
+      setCredUser(res.data[2])
     } catch (err) {
       console.log(err);
     }
   }
+
+  // console.log(transactions)
+
+
   // console.log(transactions);
   useEffect(() => {
     if (!token) {
@@ -71,12 +84,16 @@ const Home: React.FC = () => {
       if (res.status !== 200) {
         alert('Erro ao efetuar a transferencia')
         setReqError(true)
+      }else{
+        alert('Transferencia efetuada com sucesso')
+        
+        setReqError(false)
       }
-      setReqError(false)
     } catch (err) {
       console.log(err);
       setReqError(true)
     }
+    reset()
   }
 
 
@@ -109,8 +126,6 @@ const Home: React.FC = () => {
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                       {...register("username", { required: true, minLength: 3 })}
-                      {...errors.username && <small style={{ color: "red" }}>Nome é Obrigatório</small>}
-                      {...errors.username?.type === "minLength" && <p style={{ color: "red" }}><small>Nome deve conter no minimo 3 caracteres </small></p>}
                     />
                   </InputGroup>
 
@@ -126,7 +141,6 @@ const Home: React.FC = () => {
                       className='input_form'
                       aria-label="Amount (to the nearest dollar)"
                       {...register("value", { required: true, })}
-                      {...errors.username && <small style={{ color: "red" }}>Valor é Obrigatório</small>}
                     />
                     <InputGroup.Text>,00</InputGroup.Text>
                   </InputGroup>
@@ -144,30 +158,31 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+        {/* TABELA DE TRANSFERENCIAS */}
       <section>
         <div className="my_transfers">
           <div>
             <h4 className="mytransfers_title">Suas transferencias: </h4>
-            <Table striped bordered hover variant="dark"  >
+            <Table className='mytransfers_table' striped bordered responsive='sm' hover variant="dark"  >
               <thead>
                 <tr>
-                  <th>Nome:</th>
-                  <th>Pra quem:</th>
+                  <th>De:</th>
+                  <th>Para:</th>
                   <th>Valor:</th>
                   <th>Data:</th>
                 </tr>
               </thead>
 
-                {transactions?.map((tra) => {
-                  const data = tra.created_At.split('T')[0]
+                {transactions?.map((tra, index) => {
+                  const data = tra.created_At.split('T')[0] as string
                   return (
                     <>
 
                       <TableTransfer
                         key={tra.id}
-                        userName={tra.debitedAccountId}
                         data={data}
-                        creditUsername={tra.creditedAccountId}
+                        userName={user?.username}
+                        creditUsername={credUser[index].username}
                         valor={tra.value}
                       // creditUsername={tra.creditedAccountId}
                       // valor={tra.value}
@@ -176,10 +191,11 @@ const Home: React.FC = () => {
                   )
                 })}
             </Table>
+            {transactions == null ?  <p style={{color: "red"}}>Você ainda nao efetuou nehuma transferencia!</p> : null}
+
           </div>
         </div>
       </section>
-
     </>
   )
 }

@@ -1,18 +1,37 @@
-.login_button{
-    color: white;
-    background-color: rgb(0, 0, 0);
-    width: 33%;
-    border: none;
-    height: 5vh;
-    padding: 8px;
+@import url('https://fonts.cdnfonts.com/css/ibm-plex-sans');
+
+.login_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
     margin-top: 4vh;
+}
+
+.label{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+}
+
+.supporting_text{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+}
+
+.login_button{
+    color: white;
+    background-color: rgb(0, 0, 0);
+    width: 38%;
+    border: none;
+    height: 5vh;
+    padding: 8px;
+    border-radius: 50px;
 }
 
 .input_form:focus{
     border: 3px solid rgba(0, 0, 0, 0.204)!important;
-    box-shadow: 0 0 0 0;
-    outline: 0;
 }
