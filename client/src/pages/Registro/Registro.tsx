@@ -51,7 +51,7 @@ const Registro: React.FC = () => {
                         <Form.Control
                             className='input_form'
                             type="text"
-                            placeholder="Nome completo"
+                            placeholder="Nome"
                             {...register("username", { required: true, minLength: 3 })}
                         />
                         {errors.username && <small style={{ color: "red" }}>Nome é Obrigatório</small>}
