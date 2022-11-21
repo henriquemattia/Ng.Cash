@@ -8,17 +8,10 @@ const routes = Router()
 routes.post('/register', new UserController().create)
 routes.post('/login', new UserController().login)
 
-routes.use(authMiddleware)
+routes.use(authMiddleware) // middleware de verificção de token | rotas abaixo só entra quem tiver token válido
 
 routes.post('/transfer', new TransactionController().makeTransaction)
 
 routes.get('/profile', new UserController().getProfile)
-                //FILTER
-routes.get('/debited', new TransactionController().getDebitedTranfer)
-routes.get('/credited', new TransactionController().getCreditedTranfer)
-
-
-
-
 
 export default routes

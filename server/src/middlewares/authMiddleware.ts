@@ -29,8 +29,6 @@ export const authMiddleware = async (
 	next: NextFunction
 ) => {
 	const { authorization } = req.headers
-	// console.log(authorization);
-	// console.log(authorization);
 	
 	// caso nao tenha nehum token na requisição
 	if (!authorization) {
@@ -55,20 +53,13 @@ export const authMiddleware = async (
 			WHERE u.id = ${id}`
 		)
 
-
 	if (!user) {
 		throw new UnauthorizedError('Não autorizado')
 	}
 
-
-
 	const { password: _, ...loggedUser } = fullUserAccount[0]
-
-
-
 	
 	req.user = loggedUser
-	
 
 	next()
 }

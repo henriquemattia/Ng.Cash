@@ -1,23 +1,34 @@
 import { Request, Response } from "express";
+import { BadRequestError } from "../helpers/api-erros";
 import { accountRepository } from "../repositories/accountRepository";
 import { transactionRepository } from "../repositories/transactionRepository";
 
+type User = {
+    id: number;
+    username: string;
+    accountId: number;
+    balance: number;
+}
+
+type Transfer  = {
+    username: string,
+    value: number
+}
 
 export class TransactionController {
 
     async makeTransaction(req: Request, res: Response) {
         // INFORMAÇÕES DO DEBITANTE
-        const { id: debitedId, username: debitedUsername, accountId: debitedAccountId } = req.user
+        const { id: debitedId, username: debitedUsername, accountId: debitedAccountId } = req.user as User
         const debitedAccount = await accountRepository.findOneBy({ id: debitedAccountId })
         const debitedBalance = debitedAccount?.balance as number
 
         // INFORMAÇÕES DO CREDITANTE
-        const { username: creditedtUsername, value: transactionValue } = req.body
-        console.log(creditedtUsername,transactionValue);
+        const { username: creditedtUsername, value: transactionValue } = req.body as Transfer
         
 
         if (debitedUsername === creditedtUsername) {        // verficando se o usuario nao está tentando tranferir dinheiro para ele mesmo
-            return res.status(401).json("Não é possivel tranferir dinheiro para si própio")
+            throw new BadRequestError("Não é possivel tranferir dinheiro para si própio")
         }
 
         const fullCreditedAccount = await accountRepository.query(`SELECT * FROM "Users" u 
@@ -25,16 +36,16 @@ export class TransactionController {
         ON u."accountId" = a.id 
         WHERE u.username = '${creditedtUsername}'`) // pegadno todos os dados de conta do usuario creditante
 
-        const { id: creditedId, username: creditedUser, accountId: creditedAccountId, balance: creditedBalance } = fullCreditedAccount[0]
+        const { id: creditedId, username: creditedUser, accountId: creditedAccountId, balance: creditedBalance } = fullCreditedAccount[0] as User
 
         if (debitedBalance < transactionValue) {        // Verificando se o saldo da trasferencia é valido
-            return res.status(400).json("Não é possivel transferir um valor maior doque o possuido em conta")
+            throw new BadRequestError("Não é possivel transferir um valor maior doque o possuido em conta")
         }
 
         // lógica de valores para update de balance
-        const descontDebAccount = debitedBalance - transactionValue
-        const upCredAccount = creditedBalance + transactionValue
-
+        const upCredAccount = Number(creditedBalance) + Number(transactionValue) as number
+        const descontDebAccount = debitedBalance - transactionValue as number
+        
         // atualizando valores com novos balances
         const updatingDebAccount = await accountRepository.createQueryBuilder().update("Account").set({ balance: descontDebAccount }).where("id = :id", { id: debitedId }).execute()
         const updatingCredAccount = await accountRepository.createQueryBuilder().update("Account").set({ balance: upCredAccount }).where("id = :id", { id: creditedId }).execute()
@@ -59,46 +70,18 @@ export class TransactionController {
             const verifyTransaction = await transactionRepository.save(transaction)
             
             if (!verifyTransaction) {
-                return res.status(400).json("Erro ao efetuar transferencia")
+                throw new BadRequestError("Erro ao efetuar transferencia")
             }
 
         } else { // Caso uma das tranferencias nao for um sucesso reestabelecer os valores originais as contas alteradas (Melhor maneira que encontrei, mas futuralmente alterarei isso, pois nao é uma maneira muito segura)
             await accountRepository.createQueryBuilder().update("Account").set({ balance: debitedBalance }).where("id = :id", { id: debitedId }).execute()
             await accountRepository.createQueryBuilder().update("Account").set({ balance: creditedBalance }).where("id = :id", { id: creditedId }).execute()
 
-            return res.status(400).json("Erro ao efetuar transferencia")
+            throw new BadRequestError("Erro ao efetuar transferencia")
         }
 
                     // CASO SEJA TUDO UM SUCESSO
         return res.status(200).json("transferencia efetuada com sucesso")
     }
 
-
-    async getDebitedTranfer(req: Request, res: Response) {
-        const { accountId } = req.user
-
-        const DebitedTransactions = await transactionRepository.query(`SELECT * FROM "Transactions" 
-		WHERE "debitedAccountId" = ${accountId}
-		limit 5`)
-
-        if (DebitedTransactions.length === 0) {
-            return res.status(400).json("Usuario nao efetou nehuma transação como debitante")
-        }
-        return res.status(200).json(DebitedTransactions)
-
-    }
-
-    async getCreditedTranfer(req: Request, res: Response) {
-        const { accountId } = req.user
-
-        const creditedTransactions = await transactionRepository.query(`SELECT * FROM "Transactions" 
-		WHERE "creditedAccountId" = ${accountId}
-		limit 5`)
-
-        if (creditedTransactions.length === 0) {
-            return res.status(400).json("Usuario nao efetou nehuma transação como debitante")
-        }
-        return res.status(200).json(creditedTransactions)
-
-    }
 }
