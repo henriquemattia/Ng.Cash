@@ -29,8 +29,9 @@
 
 - Para visualizar a tabela de transferencias devera efetuar algumas transações, e recarregar a página
 
-- Reacrregar a página manualmente para atualizar tanto a tabela de transferencia quanto o seu "Saldo" atual!
+- Recarregar a página manualmente para atualizar tanto a tabela de transferencia quanto o seu "Saldo" atual!
 
+- Infelizmente o TypeOrm está dando alguns problemas no projeto quando usado com docker, e não cosnguindo conectar no banco de dados 
 
 -------
 

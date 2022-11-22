@@ -13,6 +13,14 @@ type JwtPayload = {
 
 export class UserController {
 
+
+	//TEST
+	async test(req: Request, res: Response){
+		res.json('tufo certo')
+	}
+
+
+
 	//  CADASTRE-SE
 async create(req: Request, res: Response) {
 	const { username, password } = req.body
@@ -90,7 +98,7 @@ async create(req: Request, res: Response) {
 		}
 
 		// configurando um token jwt para 24h
-		const token = jwt.sign({ id: user.id }, process.env.JWT_PASS ?? '', {
+		const token = jwt.sign({ id: user.id }, 'djN%2535JKhfljhdb@1lsdjkgfi', {
 			expiresIn: '1d',
 		})
 

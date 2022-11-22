@@ -9,14 +9,16 @@ services:
       POSTGRES_PASSWORD: henrique
       POSTGRES_USER: henrique
       POSTGRES_DB: ngcash
+    volumes:
+        - ./pgdata:/var/lib/postgresql/data
     ports:
-      - 5441:5432
+      - 5444:5432
   app:
-    container-name: api
+    container_name: server
     restart: always
     build: ./server
     ports:
-      -"3030:3030"
+      - 3000:3000
     depends_on:
       - db
   front:
@@ -24,6 +26,6 @@ services:
     restart: always
     build: ./client
     ports:
-      -"5173:5173"
+      - 5173:5173
     depends_on:
       - app

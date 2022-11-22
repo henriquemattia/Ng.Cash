@@ -2,16 +2,17 @@ FROM node:18
 
 RUN npm install -g http-server
 
-WORKDIR /usr/src/app/client
+WORKDIR /usr/src/app
 
-COPY package*.json ./client
+COPY package*.json .
+COPY *.json .
+COPY index.html .
+COPY *.config.ts .
 
 RUN npm i
 
-COPY . ./client
-
-RUN npm run build
+COPY . .
 
 EXPOSE 5173
 
-CMD ["http-server", "dist"]
+CMD ["npm", "run", "dev"]

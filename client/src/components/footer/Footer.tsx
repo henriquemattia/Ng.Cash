@@ -6,9 +6,9 @@ function Footer() {
   <div className='footer_container'>
     <div className='centro'>
       <span>FOOTER</span>
-      <span>Lorem, ipsum dolor sit amet consectetur </span>
-      <span>Lorem, ipsum dolor sit amet consectetur </span>
-      <span>Lorem, ipsum dolor sit amet consectetur </span>
+      <span>----------------</span>
+      <span>----------------</span>
+      <span>----------------</span>
       <span className='direitos'>@henriquemattia</span>
     </div>  
   </div>);

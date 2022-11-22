@@ -38,7 +38,7 @@ export const authMiddleware = async (
 	const token = authorization.split(' ')[1]
 
 	// verificando validade de token
-	const { id } = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayload
+	const { id } = jwt.verify(token, 'djN%2535JKhfljhdb@1lsdjkgfi') as JwtPayload
 
 	// buscando user id e username
 	const user = await userRepository.findOneBy({ id })

@@ -1,15 +1,13 @@
 FROM node:18
 
-WORKDIR /usr/src/app/server
+WORKDIR /usr/src/app
 
-COPY package*.json ./server
+COPY package*.json ./
 
 RUN npm i
 
-COPY . ./server
+COPY . .
 
-EXPOSE 3030
+EXPOSE 3000
 
-CMD [ "npm", "run", "migration:run" && "npm", "start" ]
-
-# CMD ["npm", "start"]
+CMD ["npm", "start"]
