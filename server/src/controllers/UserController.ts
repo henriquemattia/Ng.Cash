@@ -121,11 +121,11 @@ async create(req: Request, res: Response) {
 		const allTransactions = await transactionRepository.query(`select * from "Transactions" t 
 		inner join "Accounts" a
 		on t."debitedAccountId"  = a.id
-		or t."creditedAccountId" = a.id
 		inner join "Users" u 
 		on a.id = u."accountId"
 		where u.id = ${accountId}
 		limit 5`)
+		// on t."creditedAccountId" = a.id
 
 		let usuarios = await  allTransactions.map(async (transitions: any)=>{
 			let res = await transactionRepository.query(`select * from "Accounts" a 

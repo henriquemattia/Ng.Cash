@@ -17,9 +17,9 @@ const NavBar: React.FC = () => {
     <div className='navbar'>
             <img src={ngcash} alt="" className='nav-logo'/>
             <div className='log-out_button'>
-            {/* {localStorage.getItem('token') ? <button className="logout" onClick={removeToken} >Sair</button> : null} */}
+            {localStorage.getItem('token') ? <button className="logout" onClick={removeToken} >Sair</button> : null}
             </div>
-            <button className="logout" onClick={removeToken} >Sair</button>
+            {/* <button className="logout" onClick={removeToken} >Sair</button> */}
     </div>
     
     </>

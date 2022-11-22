@@ -1,5 +1,11 @@
 @import url('https://fonts.cdnfonts.com/css/ibm-plex-sans');
 
+.mytransfers_buttons{
+    display: flex;
+    justify-content: center;
+    margin: 1% 0 1% 0;
+}
+
 .input_form:focus{
     border: 3px solid rgba(0, 0, 0, 0.204)!important;
     box-shadow: 0 0 0 0;
@@ -102,4 +108,12 @@
     display: flex;    
     justify-content: center;
     padding: 1%;
+}
+
+@media (max-width: 768px) {
+    .mytransfers_buttons{
+        display: flex;
+        justify-content: center;
+        margin: 3% 0 3% 0;
+    }
 }

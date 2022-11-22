@@ -1,0 +1,18 @@
+.footer_container {
+    height: 200px;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+.centro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+.direitos {
+    padding-top: 30px;
+    font-size: x-small;
+}

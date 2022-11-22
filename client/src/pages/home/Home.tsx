@@ -14,18 +14,18 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import './home.css'
-
 // TYPES
 import { Transactions, MakeTransaction } from '../../Types/Transactions'
 import { UserFinal } from '../../Types/User';
+import Footer from '../../components/footer/Footer';
 
 type credUser = {
-accountId:number,
-balance: number,
-id: number,
-password: string,
-username: string,
-index: number
+  accountId: number,
+  balance: number,
+  id: number,
+  password: string,
+  username: string,
+  index: number
 }
 
 
@@ -84,9 +84,9 @@ const Home: React.FC = () => {
       if (res.status !== 200) {
         alert('Erro ao efetuar a transferencia')
         setReqError(true)
-      }else{
+      } else {
         alert('Transferencia efetuada com sucesso')
-        
+
         setReqError(false)
       }
     } catch (err) {
@@ -111,7 +111,6 @@ const Home: React.FC = () => {
       <section>
         <div className="transfer_zone">
           <h4 className="transfer-title">Transferir:</h4>
-
           <div className='dd'>
             <Row>
               <div className="inputs">
@@ -158,20 +157,37 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-        {/* TABELA DE TRANSFERENCIAS */}
+      {/* TABELA DE TRANSFERENCIAS */}
       <section>
         <div className="my_transfers">
           <div>
-            <h4 className="mytransfers_title">Suas transferencias: </h4>
-            <Table className='mytransfers_table' striped bordered responsive='sm' hover variant="dark"  >
-              <thead>
-                <tr>
-                  <th>De:</th>
-                  <th>Para:</th>
-                  <th>Valor:</th>
-                  <th>Data:</th>
-                </tr>
-              </thead>
+            <h4 className="mytransfers_title">Suas transferências: </h4>
+            <div className="mytransfers_buttons">
+                <Form>
+                  <Form.Check
+                    checked
+                    type="switch"
+                    id="custom-switch"
+                    label="Enviadas"
+                  />
+                  <Form.Check
+                    disabled
+                    type="switch"
+                    label="Recebidas"
+                    id="disabled-custom-switch"
+                  />
+                </Form>
+
+              </div>
+              <Table className='mytransfers_table' striped bordered responsive='sm' hover variant="dark"  >
+                <thead>
+                  <tr>
+                    <th>De:</th>
+                    <th>Para:</th>
+                    <th>Valor:</th>
+                    <th>Data:</th>
+                  </tr>
+                </thead>
 
                 {transactions?.map((tra, index) => {
                   const data = tra.created_At.split('T')[0] as string
@@ -190,12 +206,13 @@ const Home: React.FC = () => {
                     </>
                   )
                 })}
-            </Table>
-            {transactions == null ?  <p style={{color: "red"}}>Você ainda nao efetuou nehuma transferencia!</p> : null}
+              </Table>
+              {transactions == null ? <p style={{ color: "red" }}>Você ainda nao efetuou nehuma transferencia!</p> : null}
 
+            </div>
           </div>
-        </div>
       </section>
+      <Footer />
     </>
   )
 }
