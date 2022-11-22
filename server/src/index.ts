@@ -16,5 +16,5 @@ AppDataSource.initialize().then(() => {
 	app.use(routes)
 	app.use(errorMiddleware)
 
-	return app.listen(8001, () => console.log('Servidor rodando'))
+	return app.listen(3030, () => console.log('Servidor rodando'))
 })

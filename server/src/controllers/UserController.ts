@@ -16,7 +16,7 @@ export class UserController {
 
 	//TEST
 	async test(req: Request, res: Response){
-		res.json('tufo certo')
+		res.json('tudo certo')
 	}
 
 
@@ -103,7 +103,7 @@ async create(req: Request, res: Response) {
 		})
 
 		// ppegando conta copleta e balance do user
-		const { id } = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayload
+		const { id } = jwt.verify(token, 'djN%2535JKhfljhdb@1lsdjkgfi') as JwtPayload
 
 		const fullUserAccount = await accountRepository.query(`SELECT * FROM "Users" u 
 			INNER JOIN "Accounts" a 

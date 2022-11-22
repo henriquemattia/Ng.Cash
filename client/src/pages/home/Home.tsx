@@ -42,7 +42,7 @@ const Home: React.FC = () => {
 
   const token = localStorage.getItem("token")
   const safeApi = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://localhost:3030',
     headers: { 'Authorization': `Bearer ${token}` }
   })
 

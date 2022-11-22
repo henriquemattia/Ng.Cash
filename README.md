@@ -31,7 +31,7 @@
 
 - Recarregar a página manualmente para atualizar tanto a tabela de transferencia quanto o seu "Saldo" atual!
 
-- Infelizmente o TypeOrm está dando alguns problemas no projeto quando usado com docker, e não cosnguindo conectar no banco de dados 
+- Infelizmente o TypeOrm está dando alguns problemas no projeto quando usado com docker, e não conseguindo conectar no banco de dados(Não sei o motivo, )
 
 -------
 
