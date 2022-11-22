@@ -13,19 +13,19 @@ services:
         - ./pgdata:/var/lib/postgresql/data
     ports:
       - 5444:5432
-  app:
-    container_name: server
-    restart: always
-    build: ./server
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-  front:
-    container_name: client
-    restart: always
-    build: ./client
-    ports:
-      - 5173:5173
-    depends_on:
-      - app
+  # app:
+  #   container_name: server
+  #   restart: always
+  #   build: ./server
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - db
+  # front:
+  #   container_name: client
+  #   restart: always
+  #   build: ./client
+  #   ports:
+  #     - 5173:5173
+  #   depends_on:
+  #     - app

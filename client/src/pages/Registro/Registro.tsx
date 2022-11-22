@@ -23,9 +23,11 @@ const Registro: React.FC = () => {
                 password: data.password
             } as User)
 
-            if (res.status == 200) {
+            if (res.status !== 200) {
+                alert('Erro ao criar conta')
+            }else{
                 navigate('/')
-
+                
             }
 
         } catch (err) {
