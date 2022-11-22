@@ -23,9 +23,9 @@
 
 ---
 
-- Projeto desenvolvido em mobile-first, mas tentando manter o maximo responsivel possivel
+- Projeto desenvolvido em mobile-first, mas tentando manter o mais responsível possível
 
-- Ao efetuar transferencia mandar somente numeros inteiro como "50, 5, 30", pois foi configurado para aceitar apenas numeros inteiros!
+- Ao efetuar transferência mandar somente números inteiro como "50, 5, 30", pois foi configurado para aceitar apenas numeros inteiros!
 
 - Para visualizar a tabela de transferencias devera efetuar algumas transações, e recarregar a página
 
@@ -45,7 +45,7 @@
 
 #  Instruções para uso
 
-- Primeiro vamos criar um conteiner com o postgres:
+- Primeiro vamos criar um contêiner com o postgres:
 
 ```
 $ docker compose up -d
@@ -55,7 +55,7 @@ Navegue até a pasta da Api:
 ```
  $ cd server
 ```
-Instale as dependecias:
+Instale as dependêcias:
 ```
  $ npm i
 ```
@@ -75,7 +75,7 @@ Entre na pasta client:
 ```
  $ cd cliente
 ```
-Instale as dependecias:
+Instale as dependêcias:
 ```
  $ npm i
 ```
