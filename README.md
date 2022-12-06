@@ -16,8 +16,13 @@
 - Bcrypt
 ### Banco de dados
 - PostgreSql
+---
+## Imagens:
 
--------
+
+![Ng-cash-main](https://user-images.githubusercontent.com/109238392/206019290-f21f01ca-3303-4e66-9eba-36fc70214bd7.png)
+
+---
 ## Avisos importantes!
 ### No desenvolvimento deste projeto foi visado um tempo estimado de 7 dias, por isso foi feito algumas configuraçoes para acelarar a produçao.
 
