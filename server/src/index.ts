@@ -12,9 +12,9 @@ AppDataSource.initialize().then(() => {
 	app.use(cors())
 
 	app.use(express.json())
-
-	app.use(routes)
+	
 	app.use(errorMiddleware)
-
+	app.use(routes)
+	
 	return app.listen(3030, () => console.log('Servidor rodando'))
 })

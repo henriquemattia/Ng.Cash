@@ -2,7 +2,7 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 
-const port = Number(5444 || 5432) as number | undefined
+const port = Number(5444) as number | undefined
 
 export const AppDataSource = new DataSource({
 	type: 'postgres',

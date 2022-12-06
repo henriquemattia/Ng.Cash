@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { type } from "os";
+import { Transaction } from "../entities/Transaction";
 import { BadRequestError } from "../helpers/api-erros";
 import { accountRepository } from "../repositories/accountRepository";
 import { transactionRepository } from "../repositories/transactionRepository";
@@ -13,6 +15,13 @@ type User = {
 type Transfer  = {
     username: string,
     value: number
+}
+
+type Transactions = {
+    value: number,
+    createdAt: string,
+    debitedAccount: number,
+    creditedAccount: number
 }
 
 export class TransactionController {
@@ -57,18 +66,26 @@ export class TransactionController {
         const month = dateObject.getMonth() + 1;
         const year = dateObject.getFullYear();
         // data e hora no formato YYYY-MM-DD 
-
+               
+                console.log(`${year}-${month}-${date}`);
+        
         // Registradno na tabela dae transferencia foram um sucesso
         if (updatingCredAccount && updatingDebAccount) {
 
-            const transaction = transactionRepository.create({
-                value: transactionValue,
-                createdAt: `${year}-${month}-${date}`,
-                debitedAccount: debitedAccountId,
-                creditedAccount: creditedAccountId
-            })
-            const verifyTransaction = await transactionRepository.save(transaction)
-            
+            const verifyTransaction = await transactionRepository.query(`
+            insert into "Transactions" (
+                "value",
+                "created_At" ,
+                "debitedAccountId" ,
+                "creditedAccountId"
+            ) values (
+                ${transactionValue},
+                '${year}-${month}-${date}',
+                ${debitedAccountId},
+                ${creditedAccountId}
+            )
+            `)
+        
             if (!verifyTransaction) {
                 throw new BadRequestError("Erro ao efetuar transferencia")
             }
