@@ -66,9 +66,7 @@ export class TransactionController {
         const month = dateObject.getMonth() + 1;
         const year = dateObject.getFullYear();
         // data e hora no formato YYYY-MM-DD 
-               
-                console.log(`${year}-${month}-${date}`);
-        
+                       
         // Registradno na tabela dae transferencia foram um sucesso
         if (updatingCredAccount && updatingDebAccount) {
 
